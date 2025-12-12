@@ -3,199 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#78C841">
-    <meta name="description" content="DompetKu - Aplikasi dompet digital untuk mengelola keuangan Anda">
+    <meta name="theme-color" content="#E62727">
     <title>DompetKu - Dompet Digital</title>
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts - Nunito Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Anime.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    
-    <!-- QR Code Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <!-- Manifest -->
     <link rel="manifest" href="#" id="manifest-placeholder">
     
     <style>
-        :root {
-            --primary-color: #78C841;
-            --secondary-color: #FFFFFF;
-            --text-dark: #2c3e50;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        * {
+            font-family: 'Nunito Sans', sans-serif;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-red: #E62727;
+            --dark-red: #c41f1f;
+            --light-red: #ff4d4d;
+            --bg-gray: #f5f5f5;
+            --card-shadow: 0 4px 15px rgba(230, 39, 39, 0.1);
         }
         
         body {
-            font-family: 'Lora', serif;
-            background: linear-gradient(135deg, #78C841 0%, #5fa332 100%);
+            background: var(--bg-gray);
             min-height: 100vh;
-            padding-bottom: 80px;
         }
         
-        .app-title {
-            font-family: 'Merriweather', serif;
-            font-weight: 900;
-            color: var(--secondary-color);
-            text-align: center;
-            padding: 20px 0;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        /* Auth Pages */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 20px;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 450px;
+            width: 100%;
+        }
+        
+        .auth-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-red);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(230, 39, 39, 0.3);
+        }
+        
+        .auth-logo i {
+            font-size: 40px;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary-red);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 39, 39, 0.3);
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 0.2rem rgba(230, 39, 39, 0.15);
+        }
+        
+        /* Main App */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: white;
+            padding: 25px 20px;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(230, 39, 39, 0.2);
         }
         
         .balance-card {
-            background: var(--secondary-color);
+            background: white;
             border-radius: 20px;
-            padding: 30px;
-            margin: 20px auto;
-            max-width: 500px;
-            box-shadow: var(--shadow);
-            transform: translateY(0);
-        }
-        
-        .balance-title {
-            font-family: 'Merriweather', serif;
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
+            padding: 25px;
+            margin-top: -40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            z-index: 10;
         }
         
         .balance-amount {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary-red);
+            margin: 10px 0;
         }
         
-        .qr-code-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .action-buttons {
+        .feature-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin: 20px auto;
-            max-width: 500px;
-            padding: 0 15px;
+            margin: 25px 0;
         }
         
-        .action-btn {
-            background: var(--secondary-color);
+        .feature-btn {
+            background: white;
             border: none;
             border-radius: 15px;
             padding: 20px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
             cursor: pointer;
-            font-family: 'Lora', serif;
         }
         
-        .action-btn:hover {
+        .feature-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(230, 39, 39, 0.15);
         }
         
-        .action-btn i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            display: block;
+        .feature-btn i {
+            font-size: 32px;
+            color: var(--primary-red);
             margin-bottom: 10px;
         }
         
-        .action-btn span {
-            color: var(--text-dark);
+        .feature-btn span {
+            display: block;
             font-weight: 600;
+            color: #333;
         }
         
-        .transactions-section {
-            background: var(--secondary-color);
-            border-radius: 20px 20px 0 0;
-            padding: 30px;
-            margin: 30px auto 0;
-            max-width: 500px;
-            min-height: 300px;
-        }
-        
-        .section-title {
-            font-family: 'Merriweather', serif;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-        }
-        
-        .transaction-item {
-            background: #f8f9fa;
-            border-radius: 10px;
+        .transaction-card {
+            background: white;
+            border-radius: 15px;
             padding: 15px;
             margin-bottom: 10px;
+            box-shadow: var(--card-shadow);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
+            gap: 15px;
         }
         
-        .transaction-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow);
+        .transaction-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
         }
         
-        .transaction-info {
-            flex: 1;
+        .transaction-icon.income {
+            background: #d4edda;
+            color: #28a745;
         }
         
-        .transaction-type {
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 1rem;
-        }
-        
-        .transaction-date {
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-        
-        .transaction-amount {
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        
-        .amount-positive {
-            color: var(--primary-color);
-        }
-        
-        .amount-negative {
+        .transaction-icon.expense {
+            background: #f8d7da;
             color: #dc3545;
         }
         
-        .delete-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            z-index: 1000;
         }
         
-        .delete-btn:hover {
-            transform: scale(1.1);
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-red);
+        }
+        
+        .nav-item i {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item span {
+            font-size: 12px;
+            font-weight: 600;
         }
         
         .modal-content {
@@ -204,635 +243,852 @@
         }
         
         .modal-header {
-            background: var(--primary-color);
+            background: var(--primary-red);
             color: white;
             border-radius: 20px 20px 0 0;
-            font-family: 'Merriweather', serif;
-        }
-        
-        .btn-primary {
-            background: var(--primary-color);
             border: none;
-            border-radius: 10px;
-            padding: 12px 30px;
-            font-weight: 600;
         }
         
-        .btn-primary:hover {
-            background: #5fa332;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(120, 200, 65, 0.25);
-        }
-        
-        #qrReader {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        #qrReaderResults {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        
-        .empty-state {
+        .qr-code-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            padding: 40px 20px;
-            color: #6c757d;
+            box-shadow: var(--card-shadow);
         }
         
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.3;
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: white;
+            border: 3px solid var(--primary-red);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container-app {
+            padding-bottom: 100px;
+            padding-top: 20px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .badge-success {
+            background: #28a745;
+        }
+        
+        .badge-danger {
+            background: #dc3545;
         }
         
         @media (max-width: 576px) {
-            .app-title {
-                font-size: 2rem;
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .balance-amount {
-                font-size: 2rem;
-            }
-            
-            .action-buttons {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <h1 class="app-title">DompetKu</h1>
-    
-    <!-- Balance Card -->
-    <div class="balance-card" id="balanceCard">
-        <div class="balance-title">Saldo Anda</div>
-        <div class="balance-amount" id="balance">Rp 0</div>
-        <div class="qr-code-container">
-            <div id="qrcode" style="display: inline-block;"></div>
-        </div>
-        <div class="text-center mt-3">
-            <small class="text-muted">ID Pengguna: <span id="userId"></span></small>
-        </div>
-    </div>
-    
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-        <button class="action-btn" onclick="showModal('sendModal')">
-            <i class="fas fa-paper-plane"></i>
-            <span>Kirim</span>
-        </button>
-        <button class="action-btn" onclick="showModal('requestModal')">
-            <i class="fas fa-hand-holding-usd"></i>
-            <span>Minta</span>
-        </button>
-        <button class="action-btn" onclick="showModal('topupModal')">
-            <i class="fas fa-plus-circle"></i>
-            <span>Isi Saldo</span>
-        </button>
-        <button class="action-btn" onclick="showModal('scanModal')">
-            <i class="fas fa-qrcode"></i>
-            <span>Scan QR</span>
-        </button>
-        <button class="action-btn" onclick="showModal('payModal')" style="grid-column: 1 / -1;">
-            <i class="fas fa-credit-card"></i>
-            <span>Pay</span>
-        </button>
-    </div>
-    
-    <!-- Transactions Section -->
-    <div class="transactions-section">
-        <h2 class="section-title">Riwayat Transaksi</h2>
-        <div id="transactionsList"></div>
-    </div>
-    
-    <!-- Modal Kirim -->
-    <div class="modal fade" id="sendModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Kirim Uang</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="sendForm">
-                        <div class="mb-3">
-                            <label class="form-label">ID Penerima</label>
-                            <input type="text" class="form-control" id="sendRecipient" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah (Rp)</label>
-                            <input type="number" class="form-control" id="sendAmount" required min="1000">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Catatan</label>
-                            <input type="text" class="form-control" id="sendNote">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Kirim Sekarang</button>
-                    </form>
-                </div>
+
+<!-- Auth Pages -->
+<div id="authPage" class="page active">
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="auth-container">
+        <div class="auth-card text-center">
+            <div class="auth-logo">
+                <i class="fas fa-wallet"></i>
             </div>
+            <h2 class="mb-2 fw-bold">DompetKu</h2>
+            <p class="text-muted mb-4">Kelola keuangan Anda dengan mudah</p>
+            <button class="btn btn-primary w-100 mb-3" onclick="showLogin()">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </button>
+            <button class="btn btn-outline-primary w-100" onclick="showRegister()">
+                <i class="fas fa-user-plus me-2"></i>Daftar Akun
+            </button>
         </div>
     </div>
     
-    <!-- Modal Minta -->
-    <div class="modal fade" id="requestModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Minta Uang</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="requestForm">
-                        <div class="mb-3">
-                            <label class="form-label">ID Pemberi</label>
-                            <input type="text" class="form-control" id="requestSender" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah (Rp)</label>
-                            <input type="number" class="form-control" id="requestAmount" required min="1000">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Catatan</label>
-                            <input type="text" class="form-control" id="requestNote">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Kirim Permintaan</button>
-                    </form>
-                </div>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <button class="btn btn-sm btn-light mb-3" onclick="showWelcome()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <div class="auth-logo">
+                <i class="fas fa-wallet"></i>
             </div>
+            <h3 class="text-center mb-4 fw-bold">Masuk ke Akun</h3>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                        Ingat Saya
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-sign-in-alt me-2"></i>Masuk
+                </button>
+            </form>
         </div>
     </div>
     
-    <!-- Modal Top Up -->
-    <div class="modal fade" id="topupModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Isi Saldo</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="topupForm">
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah (Rp)</label>
-                            <input type="number" class="form-control" id="topupAmount" required min="10000">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Metode</label>
-                            <select class="form-select" id="topupMethod" required>
-                                <option value="Bank Transfer">Bank Transfer</option>
-                                <option value="Virtual Account">Virtual Account</option>
-                                <option value="E-Wallet">E-Wallet</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Isi Saldo</button>
-                    </form>
-                </div>
+    <!-- Register Screen -->
+    <div id="registerScreen" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <button class="btn btn-sm btn-light mb-3" onclick="showWelcome()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <div class="auth-logo">
+                <i class="fas fa-user-plus"></i>
             </div>
+            <h3 class="text-center mb-4 fw-bold">Buat Akun Baru</h3>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Nama Lengkap</label>
+                    <input type="text" class="form-control" id="registerName" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control" id="registerPassword" minlength="6" required>
+                    <small class="text-muted">Minimal 6 karakter</small>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-user-plus me-2"></i>Daftar
+                </button>
+            </form>
         </div>
     </div>
-    
-    <!-- Modal Scan QR -->
-    <div class="modal fade" id="scanModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Scan QR Code</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Masukkan ID dari QR Code</label>
-                        <input type="text" class="form-control" id="scannedId" placeholder="Contoh: USER123">
+</div>
+
+<!-- Main App -->
+<div id="mainApp" class="page">
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <div class="app-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0">Halo, <span id="userName">User</span></h5>
+                        <small class="opacity-75">Selamat datang kembali</small>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Jumlah (Rp)</label>
-                        <input type="number" class="form-control" id="scanAmount" min="1000">
-                    </div>
-                    <button onclick="processScannedQR()" class="btn btn-primary w-100">Proses Transaksi</button>
+                    <button class="btn btn-light btn-sm" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-app">
+            <div class="container">
+                <div class="balance-card">
+                    <p class="text-muted mb-1">Total Saldo</p>
+                    <h2 class="balance-amount" id="totalBalance">Rp 0</h2>
+                    <small class="text-muted">Klik untuk refresh</small>
+                </div>
+                
+                <div class="feature-grid">
+                    <button class="feature-btn" onclick="showTopUpModal()">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Top Up</span>
+                    </button>
+                    <button class="feature-btn" onclick="showPaymentModal()">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Pembayaran</span>
+                    </button>
+                    <button class="feature-btn" onclick="showSendMoneyModal()">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Kirim Uang</span>
+                    </button>
+                    <button class="feature-btn" onclick="showRequestMoneyModal()">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <span>Minta Uang</span>
+                    </button>
+                </div>
+                
+                <div class="mt-4">
+                    <h5 class="fw-bold mb-3">Transaksi Terakhir</h5>
+                    <div id="recentTransactions"></div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Modal Pay -->
-    <div class="modal fade" id="payModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pembayaran</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="payForm">
-                        <div class="mb-3">
-                            <label class="form-label">Merchant / Toko</label>
-                            <input type="text" class="form-control" id="payMerchant" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah (Rp)</label>
-                            <input type="number" class="form-control" id="payAmount" required min="1000">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Deskripsi</label>
-                            <input type="text" class="form-control" id="payDescription">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
-                    </form>
+    <!-- QR Code Page -->
+    <div id="qrPage" class="page">
+        <div class="app-header">
+            <div class="container">
+                <h5 class="mb-0"><i class="fas fa-qrcode me-2"></i>QR Code Saya</h5>
+            </div>
+        </div>
+        
+        <div class="container-app">
+            <div class="container">
+                <div class="qr-code-container">
+                    <h5 class="fw-bold mb-3">Scan untuk Transfer</h5>
+                    <div class="qr-code">
+                        <i class="fas fa-qrcode" style="font-size: 120px; color: var(--primary-red);"></i>
+                    </div>
+                    <p class="text-muted mb-1">ID Pengguna</p>
+                    <h6 class="fw-bold" id="userIdDisplay">DOMPETKU-001</h6>
+                    <small class="text-muted">Tampilkan QR code ini untuk menerima pembayaran</small>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- History Page -->
+    <div id="historyPage" class="page">
+        <div class="app-header">
+            <div class="container">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Riwayat Transaksi</h5>
+            </div>
+        </div>
+        
+        <div class="container-app">
+            <div class="container">
+                <div id="allTransactions"></div>
+            </div>
+        </div>
+    </div>
     
-    <script>
-        // Initialize App
-        let balance = 0;
-        let transactions = [];
-        let userId = '';
+    <!-- Profile Page -->
+    <div id="profilePage" class="page">
+        <div class="app-header">
+            <div class="container">
+                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Profil Saya</h5>
+            </div>
+        </div>
         
-        // Generate User ID
-        function generateUserId() {
-            return 'USER' + Math.random().toString(36).substr(2, 9).toUpperCase();
-        }
-        
-        // Load Data from localStorage
-        function loadData() {
-            const savedBalance = localStorage.getItem('dompetku_balance');
-            const savedTransactions = localStorage.getItem('dompetku_transactions');
-            const savedUserId = localStorage.getItem('dompetku_userId');
-            
-            if (savedBalance) balance = parseFloat(savedBalance);
-            if (savedTransactions) transactions = JSON.parse(savedTransactions);
-            if (savedUserId) {
-                userId = savedUserId;
-            } else {
-                userId = generateUserId();
-                localStorage.setItem('dompetku_userId', userId);
-            }
-            
-            updateBalance();
-            displayTransactions();
-            generateQRCode();
-        }
-        
-        // Save Data to localStorage
-        function saveData() {
-            localStorage.setItem('dompetku_balance', balance.toString());
-            localStorage.setItem('dompetku_transactions', JSON.stringify(transactions));
-        }
-        
-        // Update Balance Display
-        function updateBalance() {
-            const balanceEl = document.getElementById('balance');
-            balanceEl.textContent = formatCurrency(balance);
-            
-            // Animate balance
-            anime({
-                targets: '#balance',
-                scale: [1.1, 1],
-                duration: 500,
-                easing: 'easeOutElastic(1, .5)'
-            });
-        }
-        
-        // Format Currency
-        function formatCurrency(amount) {
-            return 'Rp ' + amount.toLocaleString('id-ID');
-        }
-        
-        // Add Transaction
-        function addTransaction(type, amount, description, recipient = '') {
-            const transaction = {
-                id: Date.now(),
-                type: type,
-                amount: amount,
-                description: description,
-                recipient: recipient,
-                date: new Date().toLocaleString('id-ID')
-            };
-            
-            transactions.unshift(transaction);
-            saveData();
-            displayTransactions();
-        }
-        
-        // Display Transactions
-        function displayTransactions() {
-            const listEl = document.getElementById('transactionsList');
-            
-            if (transactions.length === 0) {
-                listEl.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-receipt"></i>
-                        <p>Belum ada transaksi</p>
+        <div class="container-app">
+            <div class="container">
+                <div class="balance-card text-center">
+                    <div class="auth-logo" style="margin: 0 auto 20px;">
+                        <i class="fas fa-user"></i>
                     </div>
-                `;
-                return;
-            }
-            
-            listEl.innerHTML = transactions.map(t => `
-                <div class="transaction-item fade-in">
-                    <div class="transaction-info">
-                        <div class="transaction-type">${t.type}</div>
-                        <div class="transaction-date">${t.date}</div>
-                        ${t.description ? `<small class="text-muted">${t.description}</small>` : ''}
-                        ${t.recipient ? `<small class="text-muted d-block">Ke: ${t.recipient}</small>` : ''}
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="transaction-amount ${t.amount > 0 ? 'amount-positive' : 'amount-negative'}">
-                            ${t.amount > 0 ? '+' : ''}${formatCurrency(Math.abs(t.amount))}
-                        </div>
-                        <button class="delete-btn" onclick="deleteTransaction(${t.id})">
-                            <i class="fas fa-times"></i>
+                    <h4 class="fw-bold" id="profileName">User</h4>
+                    <p class="text-muted" id="profileEmail">user@email.com</p>
+                    <hr>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt me-2"></i>Keluar
                         </button>
                     </div>
                 </div>
-            `).join('');
-            
-            // Animate transaction items
-            anime({
-                targets: '.transaction-item',
-                translateX: [-50, 0],
-                opacity: [0, 1],
-                delay: anime.stagger(100),
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
-        }
-        
-        // Delete Transaction
-        function deleteTransaction(id) {
-            if (confirm('Hapus transaksi ini?')) {
-                const transaction = transactions.find(t => t.id === id);
-                if (transaction) {
-                    // Reverse the transaction
-                    balance -= transaction.amount;
-                    transactions = transactions.filter(t => t.id !== id);
-                    saveData();
-                    updateBalance();
-                    displayTransactions();
-                }
-            }
-        }
-        
-        // Generate QR Code
-        function generateQRCode() {
-            document.getElementById('userId').textContent = userId;
-            document.getElementById('qrcode').innerHTML = '';
-            
-            new QRCode(document.getElementById('qrcode'), {
-                text: userId,
-                width: 150,
-                height: 150,
-                colorDark: '#78C841',
-                colorLight: '#ffffff',
-            });
-        }
-        
-        // Show Modal
-        function showModal(modalId) {
-            const modal = new bootstrap.Modal(document.getElementById(modalId));
-            modal.show();
-            
-            // Animate modal entrance
-            anime({
-                targets: `#${modalId} .modal-content`,
-                scale: [0.8, 1],
-                opacity: [0, 1],
-                duration: 300,
-                easing: 'easeOutQuad'
-            });
-        }
-        
-        // Send Money Form
-        document.getElementById('sendForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const recipient = document.getElementById('sendRecipient').value;
-            const amount = parseFloat(document.getElementById('sendAmount').value);
-            const note = document.getElementById('sendNote').value;
-            
-            if (amount > balance) {
-                alert('Saldo tidak cukup!');
-                return;
-            }
-            
-            balance -= amount;
-            addTransaction('Kirim Uang', -amount, note || 'Transfer', recipient);
-            updateBalance();
-            
-            bootstrap.Modal.getInstance(document.getElementById('sendModal')).hide();
-            this.reset();
-            
-            showNotification('Uang berhasil dikirim!', 'success');
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="d-flex">
+            <div class="nav-item active" onclick="showPage('homePage')">
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
+            </div>
+            <div class="nav-item" onclick="showPage('qrPage')">
+                <i class="fas fa-qrcode"></i>
+                <span>QR Code</span>
+            </div>
+            <div class="nav-item" onclick="showPage('historyPage')">
+                <i class="fas fa-history"></i>
+                <span>Riwayat</span>
+            </div>
+            <div class="nav-item" onclick="showPage('profilePage')">
+                <i class="fas fa-user"></i>
+                <span>Profil</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Top Up Modal -->
+<div class="modal fade" id="topUpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>Top Up Saldo</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="topUpForm" onsubmit="handleTopUp(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Jumlah Top Up</label>
+                        <input type="number" class="form-control" id="topUpAmount" placeholder="Masukkan jumlah" required min="10000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Metode Pembayaran</label>
+                        <select class="form-control" required>
+                            <option>Bank Transfer</option>
+                            <option>E-Wallet</option>
+                            <option>Kartu Kredit</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Konfirmasi Top Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-credit-card me-2"></i>Pembayaran</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="paymentForm" onsubmit="handlePayment(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Kategori</label>
+                        <select class="form-control" id="paymentCategory" required>
+                            <option>Pulsa & Data</option>
+                            <option>Listrik</option>
+                            <option>Air</option>
+                            <option>Internet</option>
+                            <option>Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Jumlah Pembayaran</label>
+                        <input type="number" class="form-control" id="paymentAmount" placeholder="Masukkan jumlah" required min="1000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Keterangan</label>
+                        <input type="text" class="form-control" id="paymentNote" placeholder="Opsional">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Send Money Modal -->
+<div class="modal fade" id="sendMoneyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-paper-plane me-2"></i>Kirim Uang</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="sendMoneyForm" onsubmit="handleSendMoney(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nomor Tujuan / Email</label>
+                        <input type="text" class="form-control" id="sendMoneyRecipient" placeholder="Masukkan nomor/email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Jumlah</label>
+                        <input type="number" class="form-control" id="sendMoneyAmount" placeholder="Masukkan jumlah" required min="1000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Catatan</label>
+                        <input type="text" class="form-control" id="sendMoneyNote" placeholder="Opsional">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Kirim Uang</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Request Money Modal -->
+<div class="modal fade" id="requestMoneyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-hand-holding-usd me-2"></i>Minta Uang</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="requestMoneyForm" onsubmit="handleRequestMoney(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Dari (Nomor/Email)</label>
+                        <input type="text" class="form-control" id="requestMoneyFrom" placeholder="Masukkan nomor/email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Jumlah</label>
+                        <input type="number" class="form-control" id="requestMoneyAmount" placeholder="Masukkan jumlah" required min="1000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Alasan</label>
+                        <input type="text" class="form-control" id="requestMoneyNote" placeholder="Opsional">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Kirim Permintaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Bundle -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<!-- Anime.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+<script>
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(createServiceWorker()).catch(() => {});
+}
+
+function createServiceWorker() {
+    const swCode = `
+        self.addEventListener('install', (e) => {
+            self.skipWaiting();
         });
-        
-        // Request Money Form
-        document.getElementById('requestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const sender = document.getElementById('requestSender').value;
-            const amount = parseFloat(document.getElementById('requestAmount').value);
-            const note = document.getElementById('requestNote').value;
-            
-            addTransaction('Permintaan Uang', 0, `Meminta ${formatCurrency(amount)} dari ${sender}. ${note || ''}`, sender);
-            
-            bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
-            this.reset();
-            
-            showNotification('Permintaan uang terkirim!', 'info');
+        self.addEventListener('activate', (e) => {
+            self.clients.claim();
         });
-        
-        // Top Up Form
-        document.getElementById('topupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const amount = parseFloat(document.getElementById('topupAmount').value);
-            const method = document.getElementById('topupMethod').value;
-            
-            balance += amount;
-            addTransaction('Isi Saldo', amount, `Via ${method}`);
-            updateBalance();
-            
-            bootstrap.Modal.getInstance(document.getElementById('topupModal')).hide();
-            this.reset();
-            
-            showNotification('Saldo berhasil ditambahkan!', 'success');
-        });
-        
-        // Pay Form
-        document.getElementById('payForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const merchant = document.getElementById('payMerchant').value;
-            const amount = parseFloat(document.getElementById('payAmount').value);
-            const description = document.getElementById('payDescription').value;
-            
-            if (amount > balance) {
-                alert('Saldo tidak cukup!');
-                return;
-            }
-            
-            balance -= amount;
-            addTransaction('Pembayaran', -amount, description || 'Pembayaran', merchant);
-            updateBalance();
-            
-            bootstrap.Modal.getInstance(document.getElementById('payModal')).hide();
-            this.reset();
-            
-            showNotification('Pembayaran berhasil!', 'success');
-        });
-        
-        // Process Scanned QR
-        function processScannedQR() {
-            const scannedId = document.getElementById('scannedId').value;
-            const amount = parseFloat(document.getElementById('scanAmount').value);
-            
-            if (!scannedId || !amount) {
-                alert('Lengkapi semua field!');
-                return;
-            }
-            
-            if (amount > balance) {
-                alert('Saldo tidak cukup!');
-                return;
-            }
-            
-            balance -= amount;
-            addTransaction('Scan QR', -amount, 'Transfer via QR', scannedId);
-            updateBalance();
-            
-            bootstrap.Modal.getInstance(document.getElementById('scanModal')).hide();
-            document.getElementById('scannedId').value = '';
-            document.getElementById('scanAmount').value = '';
-            
-            showNotification('Transaksi QR berhasil!', 'success');
+    `;
+    return URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' }));
+}
+
+// Manifest JSON
+const manifest = {
+    name: "DompetKu",
+    short_name: "DompetKu",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#E62727",
+    theme_color: "#E62727",
+    icons: [
+        {
+            src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23E62727' width='100' height='100'/><text y='75' font-size='70' fill='white' font-family='Arial' x='50' text-anchor='middle'>💰</text></svg>",
+            sizes: "512x512",
+            type: "image/svg+xml"
         }
-        
-        // Show Notification
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
-            notification.style.zIndex = '9999';
-            notification.innerHTML = `
-                <i class="fas fa-check-circle me-2"></i>${message}
-            `;
-            document.body.appendChild(notification);
-            
-            anime({
-                targets: notification,
-                translateY: [-50, 0],
-                opacity: [0, 1],
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
-            
-            setTimeout(() => {
-                anime({
-                    targets: notification,
-                    translateY: [0, -50],
-                    opacity: [1, 0],
-                    duration: 500,
-                    easing: 'easeInQuad',
-                    complete: () => notification.remove()
-                });
-            }, 3000);
-        }
-        
-        // Animate Balance Card on Load
-        window.addEventListener('load', function() {
-            anime({
-                targets: '.balance-card',
-                scale: [0.9, 1],
-                opacity: [0, 1],
-                duration: 800,
-                easing: 'easeOutElastic(1, .5)'
-            });
-            
-            anime({
-                targets: '.action-btn',
-                scale: [0, 1],
-                opacity: [0, 1],
-                delay: anime.stagger(100, {start: 300}),
-                duration: 600,
-                easing: 'easeOutElastic(1, .5)'
-            });
-        });
-        
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swCode = `
-                    self.addEventListener('install', (event) => {
-                        console.log('Service Worker installed');
-                    });
-                    
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request).then((response) => {
-                                return response || fetch(event.request);
-                            })
-                        );
-                    });
-                `;
-                
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker registration failed'));
-            });
-        }
-        
-        // Create Manifest
-        const manifest = {
-            name: 'DompetKu',
-            short_name: 'DompetKu',
-            description: 'Aplikasi dompet digital untuk mengelola keuangan Anda',
-            start_url: '.',
-            display: 'standalone',
-            background_color: '#78C841',
-            theme_color: '#78C841',
-            icons: [{
-                src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%2378C841" width="100" height="100"/><text y="75" font-size="70" fill="white" text-anchor="middle" x="50">💰</text></svg>',
-                sizes: '512x512',
-                type: 'image/svg+xml'
-            }]
-        };
-        
-        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
-        
-        // Initialize App
-        loadData();
-    </script>
+    ]
+};
+
+const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+const manifestURL = URL.createObjectURL(manifestBlob);
+document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+
+// Simple encryption (basic obfuscation)
+function encryptPassword(password) {
+    return btoa(password + 'dompetku-secret');
+}
+
+function decryptPassword(encrypted) {
+    return atob(encrypted).replace('dompetku-secret', '');
+}
+
+// Auth Functions
+function showWelcome() {
+    document.getElementById('welcomeScreen').style.display = 'flex';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('registerScreen').style.display = 'none';
+    animateAuth();
+}
+
+function showLogin() {
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('registerScreen').style.display = 'none';
+    animateAuth();
+}
+
+function showRegister() {
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('registerScreen').style.display = 'flex';
+    animateAuth();
+}
+
+function animateAuth() {
+    anime({
+        targets: '.auth-card',
+        scale: [0.8, 1],
+        opacity: [0, 1],
+        duration: 500,
+        easing: 'easeOutElastic(1, .8)'
+    });
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    
+    if (password.length < 6) {
+        alert('Password minimal 6 karakter!');
+        return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    
+    if (users.find(u => u.email === email)) {
+        alert('Email sudah terdaftar!');
+        return;
+    }
+    
+    const newUser = {
+        id: 'USER-' + Date.now(),
+        name,
+        email,
+        password: encryptPassword(password),
+        balance: 0,
+        createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('dompetku_users', JSON.stringify(users));
+    
+    alert('Registrasi berhasil! Silakan login.');
+    showLogin();
+    
+    document.getElementById('registerForm').reset();
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+    
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    const user = users.find(u => u.email === email);
+    
+    if (!user) {
+        alert('Email tidak ditemukan!');
+        return;
+    }
+    
+    if (decryptPassword(user.password) !== password) {
+        alert('Password salah!');
+        return;
+    }
+    
+    const session = {
+        userId: user.id,
+        email: user.email,
+        name: user.name,
+        rememberMe: rememberMe,
+        loginTime: new Date().toISOString()
+    };
+    
+    localStorage.setItem('dompetku_session', JSON.stringify(session));
+    
+    document.getElementById('loginForm').reset();
+    loadMainApp();
+}
+
+function checkSession() {
+    const session = JSON.parse(localStorage.getItem('dompetku_session') || 'null');
+    
+    if (session && session.rememberMe) {
+        loadMainApp();
+    } else {
+        document.getElementById('authPage').classList.add('active');
+        document.getElementById('mainApp').classList.remove('active');
+    }
+}
+
+function loadMainApp() {
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    
+    if (!session) {
+        showWelcome();
+        return;
+    }
+    
+    document.getElementById('authPage').classList.remove('active');
+    document.getElementById('mainApp').classList.add('active');
+    
+    document.getElementById('userName').textContent = session.name;
+    document.getElementById('profileName').textContent = session.name;
+    document.getElementById('profileEmail').textContent = session.email;
+    document.getElementById('userIdDisplay').textContent = session.userId;
+    
+    loadBalance();
+    loadTransactions();
+    
+    anime({
+        targets: '.balance-card',
+        translateY: [-50, 0],
+        opacity: [0, 1],
+        duration: 800,
+        easing: 'easeOutExpo'
+    });
+    
+    anime({
+        targets: '.feature-btn',
+        scale: [0, 1],
+        opacity: [0, 1],
+        delay: anime.stagger(100),
+        duration: 600,
+        easing: 'easeOutElastic(1, .6)'
+    });
+}
+
+function handleLogout() {
+    if (confirm('Yakin ingin keluar?')) {
+        localStorage.removeItem('dompetku_session');
+        document.getElementById('authPage').classList.add('active');
+        document.getElementById('mainApp').classList.remove('active');
+        showWelcome();
+    }
+}
+
+// Transaction Functions
+function loadBalance() {
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    const user = users.find(u => u.id === session.userId);
+    
+    if (user) {
+        const balance = user.balance || 0;
+        document.getElementById('totalBalance').textContent = formatCurrency(balance);
+    }
+}
+
+function formatCurrency(amount) {
+    return 'Rp ' + amount.toLocaleString('id-ID');
+}
+
+function updateUserBalance(amount) {
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    const userIndex = users.findIndex(u => u.id === session.userId);
+    
+    if (userIndex !== -1) {
+        users[userIndex].balance = (users[userIndex].balance || 0) + amount;
+        localStorage.setItem('dompetku_users', JSON.stringify(users));
+        loadBalance();
+    }
+}
+
+function addTransaction(type, category, amount, note = '') {
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const transactions = JSON.parse(localStorage.getItem('dompetku_transactions') || '[]');
+    
+    const transaction = {
+        id: 'TRX-' + Date.now(),
+        userId: session.userId,
+        type: type,
+        category: category,
+        amount: amount,
+        note: note,
+        date: new Date().toISOString()
+    };
+    
+    transactions.push(transaction);
+    localStorage.setItem('dompetku_transactions', JSON.stringify(transactions));
+    
+    loadTransactions();
+}
+
+function loadTransactions() {
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const transactions = JSON.parse(localStorage.getItem('dompetku_transactions') || '[]');
+    const userTransactions = transactions.filter(t => t.userId === session.userId).reverse();
+    
+    const recentHTML = userTransactions.slice(0, 5).map(t => createTransactionCard(t)).join('');
+    document.getElementById('recentTransactions').innerHTML = recentHTML || '<p class="text-muted text-center">Belum ada transaksi</p>';
+    
+    const allHTML = userTransactions.map(t => createTransactionCard(t)).join('');
+    document.getElementById('allTransactions').innerHTML = allHTML || '<p class="text-muted text-center">Belum ada transaksi</p>';
+}
+
+function createTransactionCard(t) {
+    const isIncome = t.type === 'income';
+    const icon = isIncome ? 'fa-arrow-down' : 'fa-arrow-up';
+    const typeClass = isIncome ? 'income' : 'expense';
+    const sign = isIncome ? '+' : '-';
+    
+    return `
+        <div class="transaction-card">
+            <div class="transaction-icon ${typeClass}">
+                <i class="fas ${icon}"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="fw-semibold">${t.category}</div>
+                <small class="text-muted">${new Date(t.date).toLocaleDateString('id-ID')}</small>
+                ${t.note ? `<div><small class="text-muted">${t.note}</small></div>` : ''}
+            </div>
+            <div class="text-end">
+                <div class="fw-bold ${isIncome ? 'text-success' : 'text-danger'}">${sign} ${formatCurrency(t.amount)}</div>
+            </div>
+        </div>
+    `;
+}
+
+// Modal Functions
+const topUpModal = new bootstrap.Modal(document.getElementById('topUpModal'));
+const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+const sendMoneyModal = new bootstrap.Modal(document.getElementById('sendMoneyModal'));
+const requestMoneyModal = new bootstrap.Modal(document.getElementById('requestMoneyModal'));
+
+function showTopUpModal() {
+    topUpModal.show();
+}
+
+function showPaymentModal() {
+    paymentModal.show();
+}
+
+function showSendMoneyModal() {
+    sendMoneyModal.show();
+}
+
+function showRequestMoneyModal() {
+    requestMoneyModal.show();
+}
+
+function handleTopUp(e) {
+    e.preventDefault();
+    
+    const amount = parseInt(document.getElementById('topUpAmount').value);
+    
+    if (amount < 10000) {
+        alert('Minimal top up Rp 10.000');
+        return;
+    }
+    
+    updateUserBalance(amount);
+    addTransaction('income', 'Top Up', amount);
+    
+    topUpModal.hide();
+    document.getElementById('topUpForm').reset();
+    
+    alert('Top up berhasil!');
+    
+    anime({
+        targets: '#totalBalance',
+        scale: [1, 1.2, 1],
+        duration: 600,
+        easing: 'easeInOutQuad'
+    });
+}
+
+function handlePayment(e) {
+    e.preventDefault();
+    
+    const category = document.getElementById('paymentCategory').value;
+    const amount = parseInt(document.getElementById('paymentAmount').value);
+    const note = document.getElementById('paymentNote').value;
+    
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    const user = users.find(u => u.id === session.userId);
+    
+    if (user.balance < amount) {
+        alert('Saldo tidak mencukupi!');
+        return;
+    }
+    
+    updateUserBalance(-amount);
+    addTransaction('expense', category, amount, note);
+    
+    paymentModal.hide();
+    document.getElementById('paymentForm').reset();
+    
+    alert('Pembayaran berhasil!');
+}
+
+function handleSendMoney(e) {
+    e.preventDefault();
+    
+    const recipient = document.getElementById('sendMoneyRecipient').value;
+    const amount = parseInt(document.getElementById('sendMoneyAmount').value);
+    const note = document.getElementById('sendMoneyNote').value;
+    
+    const session = JSON.parse(localStorage.getItem('dompetku_session'));
+    const users = JSON.parse(localStorage.getItem('dompetku_users') || '[]');
+    const user = users.find(u => u.id === session.userId);
+    
+    if (user.balance < amount) {
+        alert('Saldo tidak mencukupi!');
+        return;
+    }
+    
+    updateUserBalance(-amount);
+    addTransaction('expense', 'Kirim Uang', amount, `Ke: ${recipient}${note ? ' - ' + note : ''}`);
+    
+    sendMoneyModal.hide();
+    document.getElementById('sendMoneyForm').reset();
+    
+    alert('Uang berhasil dikirim!');
+}
+
+function handleRequestMoney(e) {
+    e.preventDefault();
+    
+    const from = document.getElementById('requestMoneyFrom').value;
+    const amount = parseInt(document.getElementById('requestMoneyAmount').value);
+    const note = document.getElementById('requestMoneyNote').value;
+    
+    addTransaction('income', 'Permintaan Uang', amount, `Dari: ${from}${note ? ' - ' + note : ''}`);
+    
+    requestMoneyModal.hide();
+    document.getElementById('requestMoneyForm').reset();
+    
+    alert('Permintaan berhasil dikirim!');
+}
+
+// Navigation
+function showPage(pageId) {
+    document.querySelectorAll('#mainApp > .page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    document.getElementById(pageId).classList.add('active');
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    event.currentTarget.classList.add('active');
+    
+    if (pageId === 'historyPage') {
+        loadTransactions();
+    }
+    
+    anime({
+        targets: `#${pageId}`,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 400,
+        easing: 'easeOutQuad'
+    });
+}
+
+// Initialize
+checkSession();
+</script>
+
 </body>
 </html>
